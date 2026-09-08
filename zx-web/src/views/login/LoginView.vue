@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { Lock, Iphone } from '@element-plus/icons-vue'
 import { useUserStore } from '@/stores/user'
 import { useAuth } from '@/composables/useAuth'
 import { IS_MOCK } from '@/utils/auth'
+import AgreementDialog from '@/components/auth/AgreementDialog.vue'
 
-const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 const { handleLoginSuccess } = useAuth()
+const agreementRef = ref<InstanceType<typeof AgreementDialog>>()
+
+/** 查看协议正文（阻止冒泡避免切换勾选状态） */
+function openAgreement(tab: 'user' | 'privacy') {
+  agreementRef.value?.open(tab)
+}
 
 const formRef = ref<FormInstance>()
 const loading = ref(false)
+/** 登录协议勾选：未勾选不允许登录 */
+const agreed = ref(false)
 const form = reactive({
   cellPhone: '',
   password: '',
@@ -39,12 +47,17 @@ async function onEnter() {
 }
 
 async function submit() {
+  // 登录协议校验：未勾选时提醒并阻止提交
+  if (!agreed.value) {
+    ElMessage.warning('请先勾选同意《用户协议》与《隐私政策》后再登录')
+    return
+  }
   const valid = await formRef.value?.validate().catch(() => false)
   if (!valid) return
   loading.value = true
   try {
-    // 管理端与学员端共用登录页：默认学员端登录；Mock 演示账号见下方提示
-    await userStore.login({ cellPhone: form.cellPhone, password: form.password }, false)
+    // 统一登录：角色由后端账号属性决定（教师/管理员/学员共用同一入口）
+    await userStore.login({ cellPhone: form.cellPhone, password: form.password })
     ElMessage.success('登录成功')
     await handleLoginSuccess(form.cellPhone)
   } catch {
@@ -54,13 +67,7 @@ async function submit() {
   }
 }
 
-function goAdminLogin() {
-  router.push('/login?admin=1').then(() => router.go(0))
-}
-
-const isAdminPage = route.query.admin === '1'
-
-if (IS_MOCK && isAdminPage) {
+if (IS_MOCK) {
   ElMessage.info('Mock 演示：管理端账号 13800000001 / admin123（首次登录 admin123 会触发强制改密）')
 }
 </script>
@@ -92,10 +99,8 @@ if (IS_MOCK && isAdminPage) {
 
       <!-- 右侧表单 -->
       <div class="flex-1 bg-white p-8 dark:bg-[#1f2937] sm:p-12">
-        <h2 class="text-2xl font-bold">{{ isAdminPage ? '管理端登录' : '欢迎回来' }}</h2>
-        <p class="zx-text-secondary mt-2 text-sm">
-          {{ isAdminPage ? '教师 / 管理员账号登录' : '登录后开启你的智慧学习之旅' }}
-        </p>
+        <h2 class="text-2xl font-bold">欢迎回来</h2>
+        <p class="zx-text-secondary mt-2 text-sm">登录后开启你的智慧学习之旅</p>
 
         <el-form
           ref="formRef"
@@ -118,6 +123,14 @@ if (IS_MOCK && isAdminPage) {
             />
           </el-form-item>
           <el-form-item>
+            <el-checkbox v-model="agreed">
+              <span class="zx-text-secondary text-sm">
+                登录即代表同意
+                <a class="text-primary" @click.stop.prevent="openAgreement('user')">《用户协议》</a>与<a class="text-primary" @click.stop.prevent="openAgreement('privacy')">《隐私政策》</a>
+              </span>
+            </el-checkbox>
+          </el-form-item>
+          <el-form-item>
             <el-button
               type="primary"
               class="w-full"
@@ -133,13 +146,12 @@ if (IS_MOCK && isAdminPage) {
 
         <div class="zx-text-secondary mt-4 flex items-center justify-between text-xs">
           <span v-if="IS_MOCK">Mock 账号：13800000001 / admin123</span>
-          <span v-else>登录即代表同意《用户协议》与《隐私政策》</span>
-          <a class="cursor-pointer text-primary" @click="goAdminLogin">
-            {{ isAdminPage ? '学员端登录' : '管理端登录' }}
-          </a>
+          <a class="cursor-pointer text-primary" @click="router.push('/register')">注册新账号</a>
         </div>
+        <p class="zx-text-secondary mt-2 text-xs">管理员账号由系统后台创建，如需开通请联系管理员</p>
       </div>
     </div>
+    <AgreementDialog ref="agreementRef" />
   </div>
 </template>
 
