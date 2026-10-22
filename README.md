@@ -2,12 +2,12 @@
 
 <!--
   Badges 说明：
-  1. CI 徽章指向 github.com/I-KUN-L1/zx-learn，若仓库迁移请同步更新。
+  1. CI 徽章指向 github.com/LQK8106/zx-learn，若仓库迁移请同步更新。
   2. Coverage 为静态数值徽章。CI 每次运行会将各模块 JaCoCo 报告上传为 artifact
      （jacoco-report-java-21），下载后可查看 HTML 报告；将最新总覆盖率手动更新到
      下方 badge 的数字即可（或接入 Codecov 后替换为 codecov 动态徽章，见 docs/ROADMAP.md）。
 -->
-[![CI](https://github.com/I-KUN-L1/zx-learn/actions/workflows/ci.yml/badge.svg)](https://github.com/I-KUN-L1/zx-learn/actions/workflows/ci.yml)
+[![CI](https://github.com/LQK8106/zx-learn/actions/workflows/ci.yml/badge.svg)](https://github.com/LQK8106/zx-learn/actions/workflows/ci.yml)
 ![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen?logo=springboot&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
