@@ -22,6 +22,10 @@
   16 个可运行服务 · 2 个公共底座 · 多 Agent 智能问答 · SSE 流式输出 · 会话记忆 · 链路追踪（requestId 透传）
 </p>
 
+## 质量证据包
+
+测试方法、评级、放行判定与复现命令见 [docs/evidence/README.md](docs/evidence/README.md)。
+
 ## 📸 项目预览
 
 <details>
