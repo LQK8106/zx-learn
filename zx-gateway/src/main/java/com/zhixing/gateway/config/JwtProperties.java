@@ -25,7 +25,6 @@ public class JwtProperties {
             "/accounts/password/first-change",
             "/jwks",
             "/students/register",
-            "/teachers/register",
             "/v3/api-docs",
             "/doc.html",
             // 公共浏览接口：匿名可访问（自由浏览体验）；管理端写操作由后端 @RequireRole fail-closed 兜底

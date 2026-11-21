@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { Lock, Iphone, User } from '@element-plus/icons-vue'
-import { registerStudent, registerTeacher, type RegisterFormDTO } from '@/api/auth'
+import { registerStudent, type RegisterFormDTO } from '@/api/auth'
 import AgreementDialog from '@/components/auth/AgreementDialog.vue'
 
 const router = useRouter()
@@ -14,11 +14,8 @@ function openAgreement(tab: 'user' | 'privacy') {
   agreementRef.value?.open(tab)
 }
 
-type RoleKey = 'student' | 'teacher'
-
 const formRef = ref<FormInstance>()
 const loading = ref(false)
-const role = ref<RoleKey>('student')
 /** 注册协议勾选：未勾选不允许注册 */
 const agreed = ref(false)
 const form = reactive<RegisterFormDTO & { confirmPassword: string }>({
@@ -62,18 +59,14 @@ async function submit() {
   if (!valid) return
   loading.value = true
   try {
-    // 管理员账号仅后端创建：自助注册仅支持学员/教师，角色由后端强制指定
+    // 自助注册仅面向学员；教师/员工账号由管理员在后台创建（后端无 /teachers/register）
     const payload: RegisterFormDTO = {
       cellPhone: form.cellPhone,
       password: form.password,
       username: form.username || undefined,
       name: form.name || undefined,
     }
-    if (role.value === 'teacher') {
-      await registerTeacher(payload)
-    } else {
-      await registerStudent(payload)
-    }
+    await registerStudent(payload)
     ElMessage.success('注册成功，请登录')
     await router.replace('/login')
   } catch {
@@ -107,7 +100,7 @@ async function submit() {
       <!-- 右侧表单 -->
       <div class="flex-1 bg-white p-8 dark:bg-[#1f2937] sm:p-12">
         <h2 class="text-2xl font-bold">注册新账号</h2>
-        <p class="zx-text-secondary mt-2 text-sm">目前支持学员与教师注册</p>
+        <p class="zx-text-secondary mt-2 text-sm">自助注册仅面向学员；教师账号由管理员创建</p>
 
         <el-form
           ref="formRef"
@@ -117,12 +110,6 @@ async function submit() {
           class="mt-6"
           @keyup.enter="submit"
         >
-          <el-form-item>
-            <el-radio-group v-model="role">
-              <el-radio-button value="student">学员注册</el-radio-button>
-              <el-radio-button value="teacher">教师注册</el-radio-button>
-            </el-radio-group>
-          </el-form-item>
           <el-form-item prop="cellPhone">
             <el-input v-model="form.cellPhone" placeholder="手机号" :prefix-icon="Iphone" maxlength="11" />
           </el-form-item>

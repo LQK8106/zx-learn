@@ -21,7 +21,7 @@ export function logout() {
   return request.post<null>('/accounts/logout')
 }
 
-/** 注册表单（学员/教师自助注册；管理员仅后端创建） */
+/** 注册表单（仅学员自助注册；员工/教师账号由管理员在后台创建） */
 export interface RegisterFormDTO {
   cellPhone: string
   password: string
@@ -32,9 +32,4 @@ export interface RegisterFormDTO {
 /** 学员注册（zx-user：/students/register，网关白名单放行） */
 export function registerStudent(data: RegisterFormDTO) {
   return request.post<null>('/students/register', data)
-}
-
-/** 教师注册（zx-user：/teachers/register，网关白名单放行；角色由后端强制指定） */
-export function registerTeacher(data: RegisterFormDTO) {
-  return request.post<null>('/teachers/register', data)
 }
