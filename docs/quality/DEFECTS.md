@@ -79,7 +79,6 @@
 |---|---|---|
 | 支付单内存态 | 已改有界 LRU，生产仍应落库 | `docs/FULL-QA-REPORT-2026-09-15.md` §6.2 |
 | RAG embedding 余额不足 | 错误码 1113，功能不可用 | `docs/GO-LIVE-AUDIT-2026-09-16.md` §一 |
-| 教师自助注册 | 匿名可注册且立即生效，待决策 | 同上 |
 | JWT 无双钥轮换 | 换钥踢掉全部在线用户 | `docs/GO-LIVE-CHECKLIST.md` F 组 |
 | 手机号未打码 | 运营后台可见完整手机号 | `docs/FULL-QA-REPORT-2026-09-15.md` §6.2 |
 | 死信仅日志 warn | 未接告警通道 | 同上 |

@@ -92,7 +92,7 @@
 1. **生产密钥未替换**：`.env` 模板仍是开发占位值，JWT / 支付回调 / 数据库口令必须重新生成（`docs/GO-LIVE-CHECKLIST.md` B 组）。
 2. **目标环境动作未执行**：迁移、备份、HTTPS、死信告警均需在生产执行（同清单 C/D 组）。
 3. **RAG 向量化不可用**：配置缺陷已修，但 embedding 资源包余额不足（错误码 1113），需充值或更换供应商（`docs/GO-LIVE-AUDIT-2026-09-16.md` §一）。
-4. **教师可自助注册**：已关闭（2026-11-16）：网关白名单移除 `/teachers/register`、`TeacherController` 删除该端点、注册页仅保留学员；运行时匿名 401/404 断言待启动栈验证（见 `PROGRESS-zx-learn-20261116.md`）。
+4. **教师可自助注册**：已关闭（2026-11-16 代码层；2026-11-21 运行态已验证）：网关白名单移除 `/teachers/register`、`TeacherController` 删除该端点、注册页仅保留学员；实测匿名 `POST /teachers/register` 经网关 401、直连 zx-user 业务码 404（见 `PROGRESS-zx-learn-20261116.md` §5.1）。
 5. **支付单仍是内存态**：已从无界增长改为有界 LRU，生产仍应落库（`docs/FULL-QA-REPORT-2026-09-15.md` §6.2）。
 6. **JWT 无双钥轮换**：换钥会使全部已签发 token 失效，零掉线方案未实现（`docs/GO-LIVE-CHECKLIST.md` F 组）。
 7. **容量只有本机下界**：未在独立压测机复测，也未做 MySQL 慢查询回归（`docs/GO-LIVE-CHECKLIST.md` F 组）。

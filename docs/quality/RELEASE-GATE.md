@@ -13,12 +13,12 @@
 | A3 | 接口矩阵 | 246 端点可达，0 个 5xx | 738 次探测（3 身份），246/246 可达 | ✅ PASS | `TEST_REPORT.md` §2.1 |
 | A4 | 后端断言 | 460 项全通过 | 460 / 0（7 个套件） | ✅ PASS | `TEST_REPORT.md` §3.2 |
 | A5 | 前端断言 | 56 项全通过，类型检查 0 错误 | 56 / 0；`vue-tsc` 0 错误、build exit 0 | ✅ PASS | `TEST_REPORT.md` §3.3 |
-| A6 | 安全回归 | 垂直越权、IDOR、内部接口、注入、脱敏全通过 | 13 + 19 + 12 + 15 + 8 类全部通过 | ✅ PASS | `docs/GO-LIVE-CHECKLIST.md` A 组 |
+| A6 | 安全回归 | 垂直越权、IDOR、内部接口、注入、脱敏全通过 | 13 + 19 + 12 + 15 + 8 类全部通过；2026-11-21 补验注册入口匿名 401 / 直连 404 | ✅ PASS | `docs/GO-LIVE-CHECKLIST.md` A 组；`PROGRESS-zx-learn-20261116.md` §5.1 |
 | A7 | 数据一致性 | 9 条跨库不变量漂移 0；8 个对账断言 0 行 | 全部为 0 | ✅ PASS | `docs/FULL-QA-REPORT-2026-09-15.md` §6.1、`docs/GO-LIVE-AUDIT-2026-09-16.md` §3.7 |
 | A8 | 全新环境可重建 | 9 个迁移脚本在空库连跑 2 遍均 9/9 | 两遍均成功；课程 13、目录 78、孤儿 0 | ✅ PASS | `docs/GO-LIVE-CHECKLIST.md` A 组 |
 | A9 | 上线审查修复项回归 | `verify-go-live-audit.sh` 全部通过 | 全部通过 | ✅ PASS | `docs/verify-go-live-audit-report.txt` |
 | A10 | 缺陷闭环 | 阻断级缺陷为 0 | 25 个产品缺陷 + 1 个回归全部修复 | ✅ PASS | `docs/PRODUCTION-READINESS-2026-09-15.md` §1、[DEFECTS.md](./DEFECTS.md) |
-| A11 | 源码入库 | 干净 clone 可构建 | HEAD `74ccac2`；2026-11-16 整改工作区含 12 个修改文件 + 新增文件（未提交），本次未重跑干净 clone 构建 | ✅ PASS（沿用 2026-09 结论；改动未提交） | `git status`；`docs/GO-LIVE-AUDIT-2026-09-16.md` §一 |
+| A11 | 源码入库 | 干净 clone 可构建 | 取当时 HEAD（提交号不固化）；整改工作区存在未提交修改（数量随时间变化，本文不固化），本次未重跑干净 clone 构建 | ✅ PASS（沿用 2026-09 结论；改动未提交） | `git status`；`docs/GO-LIVE-AUDIT-2026-09-16.md` §一 |
 
 ## 2. B 组 · 配置与密钥（阻断）
 
@@ -68,7 +68,7 @@
 | 项 | 影响 | 来源 |
 |---|---|---|
 | RAG embedding 资源包余额不足（错误码 1113） | 向量化链路不可用；2026-11-16 已加启动探测 + 指标 + 生产 fail-fast 配置，额度仍需外部充值 | `docs/GO-LIVE-AUDIT-2026-09-16.md` §一；`zx-aigc/.../EmbeddingAvailabilityProbe.java` |
-| 教师可自助注册且立即生效 | **已关闭（2026-11-16）**：网关白名单移除、后端端点删除、注册页仅学员；运行时 401/404 待启动栈验证 | `PROGRESS-zx-learn-20261116.md` |
+| 教师可自助注册且立即生效 | **已关闭（2026-11-16 代码层；2026-11-21 运行态已验证）**：网关白名单移除、后端端点删除、注册页仅学员；实测匿名经网关 401 / 直连 404 | `PROGRESS-zx-learn-20261116.md` §5.1 |
 | 支付单为内存态（有界 LRU） | 重启丢单，生产应落库 | `docs/FULL-QA-REPORT-2026-09-15.md` §6.2 |
 | JWT 无双钥过渡 | 换钥会踢掉全部在线用户 | `docs/GO-LIVE-CHECKLIST.md` F 组 |
 | 无独立压测机 / 无慢查询回归 | 容量只有本机下界 | 同上 |
