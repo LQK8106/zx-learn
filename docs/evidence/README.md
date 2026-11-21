@@ -92,3 +92,9 @@ bash scripts/verify-frontend.sh
 
 - `docs/quality/` 同时包含**整改期工作文档**（`REMEDIATION-PLAN.md`、`EXECUTION-CHECKLIST.md`、`PROGRESS-*`）。这些文件记录的是过程中的中间状态，**结论性内容以本 README 与 `QUALITY-SUMMARY.md` 为准**。
 - 本目录不含任何凭据、内网地址或个人联系信息；生产密钥类内容已排除在公开范围之外。
+
+---
+
+## 相关：独立数据质量评估
+
+另外一份与本仓库代码无关的独立实践：[docs/data-quality/](../data-quality/README.md) —— 使用 Olist 公开数据集（8 表、55 万行、CC BY-NC-SA 4.0），按六维 32 条规则度量，结论与复现方式见其 `REPORT.md`。两套数据各自独立实测，不可互相套用。
