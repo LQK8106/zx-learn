@@ -1,0 +1,8 @@
+rule_id,dimension,rule_name,numerator,denominator,violation_rate_pct
+V01,validity,order_status 不在业务枚举内,0,99441,0.0
+V02,validity,payment_type 不在业务枚举内,0,103886,0.0
+V03,validity,customer_state 不是巴西 UF 两位代码,0,99441,0.0
+V04,validity,customer CEP 前缀不是 5 位数字（原始格式）,23995,99441,24.1299
+V05,validity,订单下单时间不可解析,0,99441,0.0
+V06,validity,商品类目不在翻译码表中,13,32951,0.0395
+V07,validity,seller_state 不是巴西 UF 两位代码,0,3095,0.0

@@ -1,0 +1,7 @@
+rule_id,dimension,rule_name,numerator,denominator,violation_rate_pct
+A01,accuracy,order_items 金额为负,0,112650,0.0
+A02,accuracy,payments 支付金额 <= 0,9,103886,0.0087
+A03,accuracy,review_score 超出 1..5 或缺失,0,99224,0.0
+A04,accuracy,商品重量/尺寸超出合理值域（<=0 或 超上限）,4,32951,0.0121
+A05,accuracy,下单时间晚于报告日（未来日期）,0,99441,0.0
+A06,accuracy,分期数超出 0..24 或缺失,0,103886,0.0

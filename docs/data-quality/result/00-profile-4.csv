@@ -1,0 +1,5 @@
+field,distinct_values
+order_status,8
+payment_type,5
+customer_state,27
+seller_state,23

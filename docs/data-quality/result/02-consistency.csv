@@ -1,0 +1,7 @@
+rule_id,dimension,rule_name,numerator,denominator,violation_rate_pct
+K01,consistency,订单金额勾稽不一致（items 总额 vs payments 总额，容差 0.01）,366,98665,0.371
+K02,consistency,审批时间早于下单时间,0,99281,0.0
+K03,consistency,签收时间早于承运商揽收时间,23,96475,0.0238
+K04,consistency,状态与签收时间冲突（delivered 无签收 / canceled 有签收）,14,97103,0.0144
+K05,consistency,同一 customer_unique_id 多记录的城市/州冲突,122,2997,4.0707
+K06,consistency,评价答复时间早于评价创建时间,0,99224,0.0

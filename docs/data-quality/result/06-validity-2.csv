@@ -1,0 +1,2 @@
+rule_id,dimension,rule_name,numerator,denominator,violation_rate_pct
+V04-canonical,validity,customer CEP 前缀前导零补齐后仍不是 5 位数字（敏感性口径）,0,99441,0.0

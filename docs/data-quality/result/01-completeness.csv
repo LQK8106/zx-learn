@@ -1,0 +1,8 @@
+rule_id,dimension,rule_name,numerator,denominator,violation_rate_pct
+C01,completeness,delivered 订单缺少签收时间,8,96478,0.0083
+C02,completeness,已进入履约状态但缺少审批时间,14,98202,0.0143
+C03,completeness,order_items 订单孤儿（order_id 不存在于 orders）,0,112650,0.0
+C04,completeness,payments 订单孤儿,0,103886,0.0
+C05,completeness,reviews 订单孤儿,0,99224,0.0
+C06,completeness,orders 客户孤儿（customer_id 不存在于 customers）,0,99441,0.0
+C07,completeness,products 类目缺失,610,32951,1.8512

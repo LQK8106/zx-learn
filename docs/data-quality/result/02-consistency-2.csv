@@ -1,0 +1,7 @@
+diff_bucket,order_count,pct_of_orders_with_items,abs_diff_sum
+matched_le_0.01,98299,99.628,2.73
+diff_1_10,160,0.1622,789.91
+diff_10_100,131,0.1328,3492.08
+diff_0.01_1,54,0.0547,6.89
+diff_gt_100,21,0.0213,3689.86
+no_payment_record,1,0.001,

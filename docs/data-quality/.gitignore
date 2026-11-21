@@ -1,0 +1,4 @@
+# 原始数据与本地数据库不入库（CC BY-NC-SA 4.0 禁止再分发原始数据）
+data/
+*.duckdb
+*.duckdb.wal

@@ -1,0 +1,7 @@
+rule_id,dimension,rule_name,numerator,denominator,violation_rate_pct
+U01,uniqueness,orders.order_id 重复,0,99441,0.0
+U02,uniqueness,customers.customer_id 重复,0,99441,0.0
+U03,uniqueness,"order_items 业务键 (order_id, order_item_id) 重复",0,112650,0.0
+U04,uniqueness,"payments 业务键 (order_id, payment_sequential) 重复",0,103886,0.0
+U05,uniqueness,reviews.review_id 重复,814,99224,0.8204
+U06,uniqueness,products.product_id 重复,0,32951,0.0
